@@ -1,0 +1,59 @@
+### Create profile
+POST http://localhost:8080/profile/create
+Content-Type: application/json
+
+{
+  "name": "Jek",
+  "username": "Jekov",
+  "email": "help@1100",
+  "phone": "998991234567",
+  "password": "1234",
+  "status": "ACTIVE",
+  "role": "ROLE_USER"
+}
+
+
+### Update by id for admin
+PUT localhost:8080/profile/update/3
+Content-Type: application/json
+
+{
+  "name": "Tom",
+  "username": "Tomov",
+  "email": "help@1134",
+  "phone": "998901234567",
+  "password": "12340",
+  "status": "ACTIVE",
+  "role": "ROLE_USER"
+}
+
+
+### Update by id for user
+PUT localhost:8080/profile/update_user/3
+Content-Type: application/json
+
+{
+  "name": "Tomas",
+  "username": "Brain",
+  "email": "help@tomasbra",
+  "phone": "998905556677",
+  "password": "5556677"
+}
+
+
+### Get all with pagination
+GET localhost:8080/profile/all_with_pagination
+
+
+### Delete
+DELETE localhost:8080/profile/delete/4
+
+
+### Get all by filter
+GET localhost:8080/profile/filter?page=1&size=5
+Content-Type: application/json
+
+{
+  "name": "Alish"
+}
+
