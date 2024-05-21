@@ -1,12 +1,10 @@
 package com.codeuz.entity;
 
-import com.codeuz.enums.Languages;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -20,25 +18,22 @@ public class CategoryEntity {
     private Integer id;
 
     @Column(name = "order_number")
-    private String orderNumber;
+    private Integer orderNumber;
 
     @Column(name = "name_uz")
-    @Enumerated(EnumType.STRING)
-    private Languages nameUz;
+    private String nameUz;
 
     @Column(name = "name_ru")
-    @Enumerated(EnumType.STRING)
-    private Languages nameRu;
+    private String nameRu;
 
     @Column(name = "name_en")
-    @Enumerated(EnumType.STRING)
-    private Languages nameEn;
+    private String nameEn;
 
     @Column(name = "visible")
-    private Boolean visible;
+    private Boolean visible = Boolean.TRUE;
 
     @Column(name = "created_date")
-    private LocalDateTime createdDate;
+    private LocalDateTime createdDate = LocalDateTime.now();
 
 
 

@@ -1,10 +1,12 @@
 package com.codeuz.controller;
 
 
-import com.codeuz.dto.CategoryDTO;
+import com.codeuz.dto.TypesCreateDTO;
 import com.codeuz.dto.TypesDTO;
 import com.codeuz.enums.Languages;
+import com.codeuz.mapper.TypesMapper;
 import com.codeuz.service.TypesService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +23,14 @@ public class TypesController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<TypesDTO> create(@RequestBody TypesDTO typesDTO) {
-        TypesDTO response = typesService.create(typesDTO);
+    public ResponseEntity<TypesDTO> create(@Valid @RequestBody TypesCreateDTO types) {
+        TypesDTO response = typesService.create(types);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Boolean> update(@PathVariable Integer id, @RequestBody TypesDTO typesDTO) {
-        typesService.update(id, typesDTO);
+    public ResponseEntity<Boolean> update(@PathVariable Integer id, @Valid @RequestBody TypesCreateDTO types) {
+        typesService.update(id, types);
         return ResponseEntity.ok(true);
     }
 
@@ -45,13 +47,10 @@ public class TypesController {
         return ResponseEntity.ok(typesList);
     }
 
-    @GetMapping("/by_lang")
-    public ResponseEntity<List<TypesDTO>> byLanguage(@RequestParam Languages language){
-        List<TypesDTO> typesList = typesService.getByLanguage(language);
-        return ResponseEntity.ok(typesList);
+    @GetMapping("/lang")
+    public ResponseEntity<List<TypesMapper>> getAllByLanguage(@RequestHeader(value = "Accept-Language", defaultValue = "UZ") Languages language) {
+        return ResponseEntity.ok(typesService.getAllByLanguage(language));
     }
-
-
 
 
 }

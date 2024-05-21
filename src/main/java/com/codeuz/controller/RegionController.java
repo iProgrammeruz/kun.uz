@@ -1,9 +1,12 @@
 package com.codeuz.controller;
 
 
+import com.codeuz.dto.RegionCreateDTO;
 import com.codeuz.dto.RegionDTO;
 import com.codeuz.enums.Languages;
+import com.codeuz.mapper.RegionMapper;
 import com.codeuz.service.RegionService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +23,14 @@ public class RegionController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<RegionDTO> create(@RequestBody RegionDTO regionDTO) {
-        RegionDTO response = regionService.create(regionDTO);
+    public ResponseEntity<RegionDTO> create(@Valid @RequestBody RegionCreateDTO region) {
+        RegionDTO response = regionService.create(region);
         return ResponseEntity.ok().body(response);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Boolean> update(@PathVariable("id") Integer id, @RequestBody RegionDTO regionDTO) {
-        regionService.update(id, regionDTO);
+    public ResponseEntity<Boolean> update(@PathVariable("id") Integer id, @Valid @RequestBody RegionCreateDTO region) {
+        regionService.update(id, region);
         return ResponseEntity.ok(true);
     }
 
@@ -38,16 +41,22 @@ public class RegionController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<RegionDTO>> list() {
-        List<RegionDTO> regionList = regionService.getAll();
-        return ResponseEntity.ok(regionList);
+    public ResponseEntity<List<RegionDTO>> all() {
+        return ResponseEntity.ok(regionService.getAll());
     }
 
-    @GetMapping("/by_lang")
+    /*@GetMapping("/lang")
     public ResponseEntity<List<RegionDTO>> byLanguage(@RequestParam("language") Languages language) {
-        List<RegionDTO> regioList = regionService.getByLanguage(language);
+        List<RegionDTO> regioList = regionService.getAllByLanguage(language);
         return ResponseEntity.ok(regioList);
+    }*/
+
+    @GetMapping("/lang")
+    public ResponseEntity<List<RegionMapper>> getAllByLanguage(@RequestHeader(value = "Accept-Language", defaultValue = "UZ") Languages language) {
+        return ResponseEntity.ok(regionService.getAllByLanguage(language));
     }
+
+
 
 
 

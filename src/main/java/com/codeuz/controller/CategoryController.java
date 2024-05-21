@@ -1,8 +1,11 @@
 package com.codeuz.controller;
 
+import com.codeuz.dto.CategoryCreateDTO;
 import com.codeuz.dto.CategoryDTO;
 import com.codeuz.enums.Languages;
+import com.codeuz.mapper.CategoryMapper;
 import com.codeuz.service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +20,14 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping("/create")
-    public ResponseEntity<CategoryDTO> create(@RequestBody CategoryDTO categoryDTO) {
-        CategoryDTO response = categoryService.create(categoryDTO);
+    public ResponseEntity<CategoryDTO> create(@Valid @RequestBody CategoryCreateDTO category) {
+        CategoryDTO response = categoryService.create(category);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Boolean> update(@PathVariable("id") Integer id, @RequestBody CategoryDTO categoryDTO) {
-        categoryService.update(id, categoryDTO);
+    public ResponseEntity<Boolean> update(@PathVariable("id") Integer id, @Valid @RequestBody CategoryCreateDTO category) {
+        categoryService.update(id, category);
         return ResponseEntity.ok(true);
     }
 
@@ -35,15 +38,14 @@ public class CategoryController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<CategoryDTO>> list() {
+    public ResponseEntity<List<CategoryDTO>> all() {
         List<CategoryDTO> categoryList = categoryService.getAll();
         return ResponseEntity.ok(categoryList);
     }
 
-    @GetMapping("/by_lang")
-    public ResponseEntity<List<CategoryDTO>> byLanguage(@RequestParam Languages language) {
-        List<CategoryDTO> categoryList = categoryService.getByLanguage(language);
-        return ResponseEntity.ok(categoryList);
+    @GetMapping("/by_lang/language")
+    public ResponseEntity<List<CategoryMapper>> getAllByLanguage(@RequestParam Languages language) {
+        return ResponseEntity.ok(categoryService.getAllByLanguage(language));
     }
 
 

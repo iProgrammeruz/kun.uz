@@ -1,14 +1,16 @@
 package com.codeuz.service;
-
+import com.codeuz.dto.CategoryCreateDTO;
 import com.codeuz.dto.CategoryDTO;
 import com.codeuz.entity.CategoryEntity;
 import com.codeuz.enums.Languages;
+import com.codeuz.mapper.CategoryMapper;
 import com.codeuz.repository.CategoryRepositry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 @Service
 public class CategoryService {
@@ -17,85 +19,48 @@ public class CategoryService {
     private CategoryRepositry categoryRepositry;
 
 
-    public CategoryDTO create(CategoryDTO categoryDTO) {
-        CategoryEntity category = new CategoryEntity();
-        category.setOrderNumber(categoryDTO.getOrderNumber());
-        category.setNameUz(categoryDTO.getNameUz());
-        category.setNameRu(categoryDTO.getNameRu());
-        category.setNameEn(categoryDTO.getNameEn());
-        category.setCreatedDate(categoryDTO.getCreatedDate());
-        category.setVisible(categoryDTO.getVisible());
-        categoryRepositry.save(category);
-        categoryDTO.setId(category.getId());
-        return categoryDTO;
+    public CategoryDTO create(CategoryCreateDTO category) {
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setOrderNumber(category.getOrderNumber());
+        categoryEntity.setNameUz(category.getNameUz());
+        categoryEntity.setNameRu(category.getNameRu());
+        categoryEntity.setNameEn(category.getNameEn());
+        categoryRepositry.save(categoryEntity);
+        return toDTO(categoryEntity);
     }
 
 
-    public Boolean update(Integer id, CategoryDTO categoryDTO) {
-        CategoryEntity category = get(id);
-        category.setOrderNumber(categoryDTO.getOrderNumber());
-        category.setNameUz(categoryDTO.getNameUz());
-        category.setNameRu(categoryDTO.getNameRu());
-        category.setNameEn(categoryDTO.getNameEn());
-        category.setCreatedDate(categoryDTO.getCreatedDate());
-        category.setVisible(categoryDTO.getVisible());
-        categoryRepositry.save(category);
-        categoryDTO.setId(category.getId());
+    public Boolean update(Integer id, CategoryCreateDTO category) {
+        CategoryEntity categoryEntity = get(id);
+        categoryEntity.setOrderNumber(category.getOrderNumber());
+        categoryEntity.setNameUz(category.getNameUz());
+        categoryEntity.setNameRu(category.getNameRu());
+        categoryEntity.setNameEn(category.getNameEn());
+        categoryRepositry.save(categoryEntity);
         return true;
     }
 
 
     public Boolean delete(Integer id) {
-        CategoryEntity category = get(id);
-        categoryRepositry.delete(category);
+        categoryRepositry.deleteById(id);
         return true;
     }
 
 
     public List<CategoryDTO> getAll() {
-        Iterable<CategoryEntity> categoryEntities = categoryRepositry.findAll();
+        Iterable<CategoryEntity> categoryEntities = categoryRepositry.findAllOrderByOrderNumner();
         List<CategoryDTO> categoryList = new ArrayList<>();
         categoryEntities.forEach(categoryEntity -> {
-            CategoryDTO categoryDTO = new CategoryDTO();
-            categoryDTO.setId(categoryEntity.getId());
-            categoryDTO.setOrderNumber(categoryEntity.getOrderNumber());
-            categoryDTO.setNameUz(categoryEntity.getNameUz());
-            categoryDTO.setNameRu(categoryEntity.getNameRu());
-            categoryDTO.setNameEn(categoryEntity.getNameEn());
-            categoryDTO.setCreatedDate(categoryEntity.getCreatedDate());
-            categoryDTO.setVisible(categoryEntity.getVisible());
-            categoryList.add(categoryDTO);
+            categoryList.add(toDTO(categoryEntity));
         });
         return categoryList;
     }
 
 
-    public List<CategoryDTO> getByLanguage(Languages language) {
-        List<CategoryEntity> categoryEntities = categoryRepositry.findAllByLanguage(language.name());
-        List<CategoryDTO> categoryDTOList = new ArrayList<>();
-        categoryEntities.forEach(categoryEntity -> {
-            CategoryDTO categoryDTO = new CategoryDTO();
-            categoryDTO.setId(categoryEntity.getId());
-            categoryDTO.setOrderNumber(categoryEntity.getOrderNumber());
-            categoryDTO.setNameUz(categoryEntity.getNameUz());
-            categoryDTO.setNameRu(categoryEntity.getNameRu());
-            categoryDTO.setNameEn(categoryEntity.getNameEn());
-            categoryDTO.setCreatedDate(categoryEntity.getCreatedDate());
-            categoryDTO.setVisible(categoryEntity.getVisible());
-            categoryDTOList.add(categoryDTO);
-        });
-        return categoryDTOList;
+    public List<CategoryMapper> getAllByLanguage(Languages language) {
+        List<CategoryMapper> categoryMapperList = categoryRepositry.findAll(language.name());
+        return categoryMapperList;
     }
-
-
-
-
-
-
-
-
-
-
 
 
     public CategoryEntity get(Integer id) {
@@ -104,6 +69,16 @@ public class CategoryService {
         });
     }
 
+    public CategoryDTO toDTO(CategoryEntity categoryEntity) {
+        CategoryDTO dto = new CategoryDTO();
+        dto.setId(categoryEntity.getId());
+        dto.setNameUz(categoryEntity.getNameUz());
+        dto.setNameRu(categoryEntity.getNameRu());
+        dto.setNameEn(categoryEntity.getNameEn());
+        dto.setOrderNumber(categoryEntity.getOrderNumber());
+        dto.setCreatedDate(categoryEntity.getCreatedDate());
+        return dto;
+    }
 
 
 }
