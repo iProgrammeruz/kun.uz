@@ -13,10 +13,13 @@ public class TypesCreateDTO {
 
     @NotNull(message = "Order number required")
     private Integer orderNumber;
+
     @NotBlank(message = "NameUz required")
     private String nameUz;
+
     @NotBlank(message = "NameRu required")
     private String nameRu;
+
     @NotBlank(message = "NameEn required")
     private String nameEn;
 }

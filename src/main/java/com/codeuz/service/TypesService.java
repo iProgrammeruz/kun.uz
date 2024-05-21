@@ -51,12 +51,12 @@ public class TypesService {
 
     public PageImpl<TypesDTO> getAllWithPanigation(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
-        Page<TypesEntity> types = typesRepositry.findAll(pageable);
+        Page<TypesEntity> typesList = typesRepositry.findAll(pageable);
         List<TypesDTO> typesDTOList = new ArrayList<>();
-        types.getContent().forEach(typesEntity -> {
+        typesList.getContent().forEach(typesEntity -> {
             typesDTOList.add(toDTO(typesEntity));
         });
-        return new PageImpl<>(typesDTOList, pageable, types.getTotalElements());
+        return new PageImpl<>(typesDTOList, pageable, typesList.getTotalElements());
     }
 
 

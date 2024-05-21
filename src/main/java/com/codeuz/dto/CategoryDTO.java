@@ -1,5 +1,4 @@
 package com.codeuz.dto;
-import com.codeuz.enums.Languages;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
