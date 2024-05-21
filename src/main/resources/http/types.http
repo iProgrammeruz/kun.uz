@@ -1,0 +1,37 @@
+### Create Types
+POST localhost:8080/types/create
+Content-Type: application/json
+
+{
+  "orderNumber": 4,
+  "nameUz": "Maqolalar",
+  "nameRu": "Статьи",
+  "nameEn": "Articles"
+}
+
+
+### Get all with pagination
+GET localhost:8080/types/pagination
+
+
+### Update by id
+PUT localhost:8080/types/update/3
+Content-Type: application/json
+
+{
+  "orderNumber": 3,
+  "nameUz": "Dolzarb Xabarlar",
+  "nameRu": "Хорошие новости",
+  "nameEn": "Good news"
+}
+
+
+### Delete
+DELETE localhost:8080/types/delete/4
+
+
+### Get all by language with RequestHeader
+GET localhost:8080/types/lang
+Accept-Language:
+
+

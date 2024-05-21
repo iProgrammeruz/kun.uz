@@ -1,0 +1,54 @@
+### Create student
+POST localhost:8080/create
+Content-Type: application/json
+
+{
+  "name": "Alish",
+  "surname": "Alishev",
+  "level": "1-course",
+  "age": 20,
+  "gender": "male"
+}
+
+
+### Get all
+GET localhost:8080/all
+
+
+### Get By Name
+GET localhost:8080/name/Alish
+
+
+### Get By Name And Surname
+GET localhost:8080/nameAndSurname/Alish/Aliyev
+
+
+### Get By Name Or Surname Or Phone
+GET localhost:8080/nameOrSurnameOrPhone/Valish/Valiyev/123124
+
+
+### By age
+POST localhost:8080/age
+Content-Type: application/json
+
+[
+  18,
+  20,
+  23
+]
+
+
+### Pagination
+GET localhost:8080/pagination?page=1&size=3
+
+
+### Pagination
+POST localhost:8080/filter?page=3&size=3
+Content-Type: application/json
+
+{
+  "name": "Alish"
+}
+
+
+
