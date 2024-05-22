@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class ProfileFilterDTO {
 
     private String name;
-    private String username;
+    private String surname;
     private String phone;
     private ProfileRole role;
     private LocalDateTime createDateFrom;

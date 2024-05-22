@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "name": "Jek",
-  "username": "Jekov",
+  "surname": "Jekov",
   "email": "help@1100",
   "phone": "998991234567",
   "password": "1234",
@@ -19,7 +19,7 @@ Content-Type: application/json
 
 {
   "name": "Tom",
-  "username": "Tomov",
+  "surname": "Tomov",
   "email": "help@1134",
   "phone": "998901234567",
   "password": "12340",
@@ -34,7 +34,7 @@ Content-Type: application/json
 
 {
   "name": "Tomas",
-  "username": "Brain",
+  "surname": "Brain",
   "email": "help@tomasbra",
   "phone": "998905556677",
   "password": "5556677"
@@ -50,10 +50,11 @@ DELETE localhost:8080/profile/delete/4
 
 
 ### Get all by filter
-GET localhost:8080/profile/filter?page=1&size=5
+POST localhost:8080/profile/filter?page=1&size=3
 Content-Type: application/json
 
 {
   "name": "Alish"
+
 }
 

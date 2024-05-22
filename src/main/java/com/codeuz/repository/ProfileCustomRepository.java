@@ -29,9 +29,9 @@ public class ProfileCustomRepository {
             query.append(" and s.name=:name ");
             params.put("name", filter.getName());
         }
-        if (filter.getUsername() != null){
-            query.append(" and s.username=:username ");
-            params.put("surname", filter.getUsername());
+        if (filter.getSurname() != null){
+            query.append(" and s.surname=:surname ");
+            params.put("surname", filter.getSurname());
         }
         if (filter.getPhone() != null){
             query.append(" and s.phone=:phone ");
@@ -41,18 +41,15 @@ public class ProfileCustomRepository {
             query.append(" and s.role=:role ");
             params.put("role", filter.getRole());
         }
-        if (filter.getCreateDateTo() != null){
-            query.append(" and s.create_date>=:createDateTo ");
-            params.put("createDateTo", filter.getCreateDateTo());
-        }
         if (filter.getCreateDateFrom() != null){
-            query.append(" and s.create_date<=:createDateFrom ");
+            query.append(" and s.createDate between :createDateFrom and :createDateTo ");
             params.put("createDateFrom", filter.getCreateDateFrom());
+            params.put("createDateTo", filter.getCreateDateTo());
         }
 
         StringBuilder selectSql = new StringBuilder(" from ProfileEntity s where s.visible = true");
-        StringBuilder countSql = new StringBuilder(" select count(s) from ProfileEntity s where s.visible = true");
         selectSql.append(query);
+        StringBuilder countSql = new StringBuilder(" select count(s) from ProfileEntity s where s.visible = true");
         countSql.append(query);
 
         //select

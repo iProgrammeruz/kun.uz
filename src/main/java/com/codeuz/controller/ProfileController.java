@@ -57,9 +57,9 @@ public class ProfileController {
     }
 
 
-    @GetMapping("/filter")
-    public ResponseEntity<Page<ProfileDTO>> filter(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                                                   @RequestParam(value = "page", defaultValue = "10") Integer size,
+    @PostMapping("/filter")
+    public ResponseEntity<Page<ProfileDTO>> filter(@RequestParam(value = "page", defaultValue = "1") int page,
+                                                   @RequestParam(value = "size", defaultValue = "10") int size,
                                                    @RequestBody ProfileFilterDTO profileFilterDTO){
         PageImpl<ProfileDTO> pageList = profileService.filter(profileFilterDTO, page-1, size);
         return ResponseEntity.ok().body(pageList);
