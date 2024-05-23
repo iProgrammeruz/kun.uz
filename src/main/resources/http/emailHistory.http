@@ -1,0 +1,12 @@
+### Email history by email
+GET localhost:8080/email/history_by_email?email=couragesland77@gmail.com
+
+
+
+### Email history by given date
+GET localhost:8080/email/history_by_given_date?given_date=2024-05-23
+
+
+
+### Email history by pagination
+GET localhost:8080/email/history_by_pagination
