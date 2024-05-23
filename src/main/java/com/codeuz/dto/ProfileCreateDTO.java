@@ -19,7 +19,7 @@ public class ProfileCreateDTO {
 
     @NotBlank(message = "Surname is mandatory")
     @Size(min = 2, max = 20, message = "Surname should be more than 2 characters")
-    private String username;
+    private String surname;
 
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email should be valid")

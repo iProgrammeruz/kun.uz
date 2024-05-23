@@ -21,12 +21,17 @@ public class AuthService {
     private ProfileRepository profileRepository;
     @Autowired
     private MailSenderService mailSenderService;
+    @Autowired
+    private EmailHistoryService emailHistoryService;
+
+
 
     public String registration(RegistrationDTO dto) {
         Optional<ProfileEntity> optional = profileRepository.findByEmailAndVisibleTrue(dto.getEmail());
         if (optional.isPresent()) {
             throw new AppBadException("Email already exists");
         }
+
         // Registration
         ProfileEntity entity = new ProfileEntity();
         entity.setName(dto.getName());
@@ -51,7 +56,7 @@ public class AuthService {
                 "    }\n" +
                 "\n" +
                 "    a:hover, a:active {\n" +
-                "        background-color: red;\n" +
+                "        background-color: green;\n" +
                 "    }\n" +
                 "</style>\n" +
                 "<div style=\"text-align: center\">\n" +
@@ -63,8 +68,9 @@ public class AuthService {
                 "    </div>";
         String text = String.format(formatText, url);
         mailSenderService.send(dto.getEmail(), "Complete registration", text);
-
+        emailHistoryService.createEmailHistory(url, dto.getEmail());
         return "To complete your registration please verify your email!";
+
     }
 
     public String authorizationVerification(Integer userId) {
@@ -79,5 +85,7 @@ public class AuthService {
         profileRepository.updateStatus(userId, ProfileStatus.ACTIVE);
         return "Success";
     }
+
+
 
 }

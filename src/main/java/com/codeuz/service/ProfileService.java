@@ -27,7 +27,7 @@ public class ProfileService {
     public ProfileDTO create(ProfileCreateDTO profile) {
         ProfileEntity profileEntity = new ProfileEntity();
         profileEntity.setName(profile.getName());
-        profileEntity.setSurname(profile.getUsername());
+        profileEntity.setSurname(profile.getSurname());
         profileEntity.setEmail(profile.getEmail());
         profileEntity.setPhone(profile.getPhone());
         profileEntity.setPassword(profile.getPassword());
@@ -41,7 +41,7 @@ public class ProfileService {
     public Boolean update(Integer id, ProfileCreateDTO profile) {
         ProfileEntity profileEntity = get(id);
         profileEntity.setName(profile.getName());
-        profileEntity.setSurname(profile.getUsername());
+        profileEntity.setSurname(profile.getSurname());
         profileEntity.setEmail(profile.getEmail());
         profileEntity.setPhone(profile.getPhone());
         profileEntity.setPassword(profile.getPassword());
@@ -55,7 +55,7 @@ public class ProfileService {
     public Boolean updateUser(Integer id, ProfileCreateDTO profileUser) {
         ProfileEntity profileEntity = get(id);
         profileEntity.setName(profileUser.getName());
-        profileEntity.setSurname(profileUser.getUsername());
+        profileEntity.setSurname(profileUser.getSurname());
         profileEntity.setEmail(profileUser.getEmail());
         profileEntity.setPhone(profileUser.getPhone());
         profileEntity.setPassword(profileUser.getPassword());

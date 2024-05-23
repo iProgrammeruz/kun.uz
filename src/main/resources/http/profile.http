@@ -4,10 +4,10 @@ Content-Type: application/json
 
 {
   "name": "Jek",
-  "surname": "Jekov",
+  "surname": "Jeckov",
   "email": "help@1100",
   "phone": "998991234567",
-  "password": "1234",
+  "password": "alkhj1234l",
   "status": "ACTIVE",
   "role": "ROLE_USER"
 }
@@ -54,7 +54,9 @@ POST localhost:8080/profile/filter?page=1&size=3
 Content-Type: application/json
 
 {
-  "name": "Alish"
+
+  "createDateFrom": "2024-05-19T11:28",
+  "createDateTo": "2024-05-22T22:00"
 
 }
 
