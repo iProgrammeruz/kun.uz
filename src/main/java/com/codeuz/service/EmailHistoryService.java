@@ -1,7 +1,6 @@
 package com.codeuz.service;
 
 import com.codeuz.dto.EmailHistoryDTO;
-import com.codeuz.dto.auth.RegistrationDTO;
 import com.codeuz.entity.EmailHistoryEntity;
 import com.codeuz.exp.AppBadException;
 import com.codeuz.repository.EmailHistoryRepository;
@@ -49,7 +48,7 @@ public class EmailHistoryService {
     }
 
 
-    // Get all email history by created date
+    // Get all email history by given date
     public List<EmailHistoryDTO> getAllEmailHistoryByGivenDate(LocalDate givenDate) {
         LocalDate from = givenDate;
         LocalDate to = givenDate.plusDays(1);

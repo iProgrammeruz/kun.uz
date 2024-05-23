@@ -10,3 +10,7 @@ Content-Type: application/json
 }
 
 
+### Login
+GET localhost:8080/auth/login?email=couragesland77@gmail.com&password=i12345L
+
+

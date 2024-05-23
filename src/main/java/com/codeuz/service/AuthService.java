@@ -1,6 +1,7 @@
 package com.codeuz.service;
 
 
+import com.codeuz.dto.ProfileDTO;
 import com.codeuz.dto.auth.RegistrationDTO;
 import com.codeuz.entity.ProfileEntity;
 import com.codeuz.enums.ProfileRole;
@@ -73,6 +74,7 @@ public class AuthService {
 
     }
 
+    // Authorization
     public String authorizationVerification(Integer userId) {
         Optional<ProfileEntity> optional = profileRepository.findById(userId);
         if (optional.isEmpty()) {
@@ -84,6 +86,28 @@ public class AuthService {
         }
         profileRepository.updateStatus(userId, ProfileStatus.ACTIVE);
         return "Success";
+    }
+
+    // Login
+    public ProfileDTO login(String email, String password) {
+        Optional<ProfileEntity> optional = profileRepository.findByEmailAndVisibleTrue(email);
+        if (optional.isEmpty()) {
+            throw new AppBadException("User not found");
+        }
+        ProfileEntity entity = optional.get();
+        if (!entity.getPassword().equals(MD5Util.getMD5(password))) {
+            throw new AppBadException("Wrong password");
+        }
+        if (entity.getStatus() != ProfileStatus.ACTIVE) {
+            throw new AppBadException("User is not active");
+        }
+        ProfileDTO dto = new ProfileDTO();
+        dto.setName(entity.getName());
+        dto.setSurname(entity.getSurname());
+        dto.setEmail(entity.getEmail());
+        dto.setRole(entity.getRole());
+        dto.setStatus(entity.getStatus());
+        return dto;
     }
 
 
