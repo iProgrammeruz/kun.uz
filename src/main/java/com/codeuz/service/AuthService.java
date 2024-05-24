@@ -53,7 +53,7 @@ public class AuthService {
             throw new AppBadException("User not found");
         }
         ProfileEntity entity = optional.get();
-        emailHistoryService.isNotExpiredEmail(entity.getEmail());   // check for expiration date
+        emailHistoryService.isNotExpiredEmail(entity.getEmail());   // check for link expiration date
         if (!entity.getVisible() || !entity.getStatus().equals(ProfileStatus.REGISTRATION)) {
             throw new AppBadException("Registration is not completed");
         }
