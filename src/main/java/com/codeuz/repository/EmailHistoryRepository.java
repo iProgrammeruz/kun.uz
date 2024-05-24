@@ -8,7 +8,9 @@ import org.springframework.data.repository.CrudRepository;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 public interface EmailHistoryRepository extends CrudRepository<EmailHistoryEntity, Integer> {
@@ -23,6 +25,12 @@ public interface EmailHistoryRepository extends CrudRepository<EmailHistoryEntit
 
     @Query(" from EmailHistoryEntity order by createdDate")
     Page<EmailHistoryEntity> findAll(Pageable pageable);
+
+    Long countByEmailAndCreatedDateBetween(String email, LocalDateTime from, LocalDateTime to);
+    // select count(*) from email_history created_date between :from and :to
+
+    Optional<EmailHistoryEntity> findByEmail(String email);
+
 
 
 }

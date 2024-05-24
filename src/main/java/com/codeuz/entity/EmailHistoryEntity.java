@@ -20,7 +20,7 @@ public class EmailHistoryEntity {
     @Column(name = "message", nullable = false, columnDefinition = "text")
     private String message;
 
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "created_date")

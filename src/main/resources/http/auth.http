@@ -10,6 +10,10 @@ Content-Type: application/json
 }
 
 
+### Resend for verification
+GET localhost:8080/auth/verification/resend/couragesland77@gmail.com
+
+
 ### Login
 GET localhost:8080/auth/login?email=couragesland77@gmail.com&password=i12345L
 

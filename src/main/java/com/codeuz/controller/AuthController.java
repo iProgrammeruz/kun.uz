@@ -28,11 +28,19 @@ public class AuthController {
         return ResponseEntity.ok().body(body);
     }
 
+    @GetMapping("/verification/resend/{email}")
+    public ResponseEntity<String> verificationResend(@PathVariable("email") String email) {
+        String body = authService.authorizeResend(email);
+        return ResponseEntity.ok().body(body);
+    }
+
     @GetMapping("/login")
     public ResponseEntity<ProfileDTO> login(@RequestParam("email") String email, @RequestParam("password") String password) {
         ProfileDTO response = authService.login(email, password);
         return ResponseEntity.ok().body(response);
     }
+
+
 
 
 
