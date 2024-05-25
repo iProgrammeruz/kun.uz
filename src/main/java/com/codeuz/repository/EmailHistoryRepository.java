@@ -29,6 +29,7 @@ public interface EmailHistoryRepository extends CrudRepository<EmailHistoryEntit
     Long countByEmailAndCreatedDateBetween(String email, LocalDateTime from, LocalDateTime to);
     // select count(*) from email_history created_date between :from and :to
 
+    @Query(" from EmailHistoryEntity order by createdDate desc limit 1")
     Optional<EmailHistoryEntity> findByEmail(String email);
 
 
