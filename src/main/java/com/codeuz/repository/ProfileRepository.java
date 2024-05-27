@@ -20,4 +20,6 @@ public interface ProfileRepository extends CrudRepository<ProfileEntity, Integer
     @Query(" update ProfileEntity set status = ?2 where id = ?1 ")
     int updateStatus(Integer id, ProfileStatus status);
 
+    Optional<ProfileEntity> findByPhoneAndVisibleTrue(String phone);
+
 }

@@ -1,20 +1,48 @@
-### Registration
-POST localhost:8080/auth/registration
+### Registration with email
+POST localhost:8080/auth/registration_email
 Content-Type: application/json
 
 {
   "name": "Vali",
   "surname": "Valiyev",
   "email": "couragesland77@gmail.com",
+  "phone": "998900911308",
   "password": "i12345L"
 }
+
+
+### Verify with email
+GET localhost:8080/auth/verification_email/2
 
 
 ### Resend for verification
 GET localhost:8080/auth/verification/resend/couragesland77@gmail.com
 
 
-### Login
-GET localhost:8080/auth/login?email=couragesland77@gmail.com&password=i12345L
+### Login with email
+GET localhost:8080/auth/login_email?email=couragesland77@gmail.com&password=i12345L
 
 
+### Registration with phone
+POST localhost:8080/auth/registration_phone
+Content-Type: application/json
+
+{
+  "name": "Vali",
+  "surname": "Valiyev",
+  "email": "couragesland77@gmail.com",
+  "phone": "998900911308",
+  "password": "i12345L"
+}
+
+
+### Verify with phone
+GET localhost:8080/auth/verification_sms?code=This is test from Eskiz&phone=998900911308
+
+
+### Resend code verify with phone
+GET localhost:8080/auth/verification/resend?phone=998900911308
+
+
+### Login with phone
+GET localhost:8080/auth/login_phone?phone=998900911308&password=i12345L

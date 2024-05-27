@@ -19,6 +19,9 @@ public class RegistrationDTO {
     private String email;
 
     @NotBlank
+    private String phone;
+
+    @NotBlank
     private String password;
 
 
