@@ -1,0 +1,26 @@
+package com.codeuz.util;
+
+import com.codeuz.dto.auth.JwtDTO;
+import com.codeuz.enums.ProfileRole;
+import com.codeuz.exp.AppForbiddenException;
+
+public class SecurityUtil {
+
+    public static JwtDTO getJwt(String token) {
+
+        String jwt = token.substring(7);
+        JwtDTO jwtDTO = JWTUtil.decode(jwt);
+        return jwtDTO;
+    }
+
+
+    public static JwtDTO getJwtDTO(String token, ProfileRole requiredRole) {
+        JwtDTO dto = getJwt(token);
+        if(!dto.getRole().equals(requiredRole)){
+            throw new AppForbiddenException("You do not have permission to access this method!");
+        }
+        return dto;
+    }
+
+
+}
