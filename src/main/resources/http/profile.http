@@ -1,8 +1,7 @@
 ### Create profile (Admin)
 POST http://localhost:8080/profile/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0OTI5MTksImlkIjoyLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzU3OTMxOSwiaXNzIjoiS3VuVXpUZXN0In0.BdpmI_PrFJa9yDN79R4lm3Rscts_mOB2H9K5tympOpgyx-JHnAtnaXVvh3B9dYOKZ8N5A13yqyaabsR8e7POnw
-
+Authorization: Basic YWRtaW46QWRtaW5qb24wMQ==
 
 {
   "name": "Kapitan",

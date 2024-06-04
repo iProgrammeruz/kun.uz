@@ -15,7 +15,7 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
 
-@Component
+/*@Component
 public class TokenFilter extends GenericFilterBean {
 
 
@@ -27,7 +27,7 @@ public class TokenFilter extends GenericFilterBean {
         final HttpServletRequest request = (HttpServletRequest) servletRequest;
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        final String authHeader = request.getHeader("Authorization");
+         final String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setHeader("Message", "Token Not Found Mazgi.");
@@ -47,7 +47,5 @@ public class TokenFilter extends GenericFilterBean {
         request.setAttribute("id", jwtDto.getId());
         request.setAttribute("role", jwtDto.getRole());
         filterChain.doFilter(request, response);
-
-
     }
-}
+}*/

@@ -30,11 +30,7 @@ public class ProfileController {
 
     // 1 - Create Profile (ADMIN)
     @PostMapping("/create")
-    public ResponseEntity<ProfileDTO> create(@Valid @RequestBody ProfileCreateDTO profile,
-                                             @RequestHeader("Authorization") String token,
-                                             HttpServletRequest request){
-        //SecurityUtil.getJwtDTO(token, ProfileRole.ROLE_ADMIN);
-        JwtDTO jwtDTO = HttpRequestUtil.getJwtDTO(request, ProfileRole.ROLE_ADMIN);
+    public ResponseEntity<ProfileDTO> create(@Valid @RequestBody ProfileCreateDTO profile){
         ProfileDTO response = profileService.create(profile);
         return ResponseEntity.ok().body(response);
     }

@@ -26,7 +26,7 @@ public class SecurityConfig {
     public AuthenticationProvider authenticationProvider() {
         // authentication
         String password = UUID.randomUUID().toString();
-        System.out.println("User Pasword mazgi: " + password);
+        System.out.println("User Password mazgi: " + password);
 
         UserDetails user = User.builder()
                 .username("user")
@@ -35,10 +35,9 @@ public class SecurityConfig {
                 .build();
         UserDetails admin = User.builder()
                 .username("admin")
-                .password("{noop}adminjon")
+                .password("{noop}Adminjon01")
                 .roles("ADMIN")
                 .build();
-
 
         final DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(new InMemoryUserDetailsManager(user, admin));
@@ -62,7 +61,6 @@ public class SecurityConfig {
         http.httpBasic(Customizer.withDefaults());
         http.csrf(AbstractHttpConfigurer::disable);
         http.cors(AbstractHttpConfigurer::disable);
-
         return http.build();
 
     }
