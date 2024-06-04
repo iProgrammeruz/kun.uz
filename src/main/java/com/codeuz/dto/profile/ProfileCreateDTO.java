@@ -1,4 +1,4 @@
-package com.codeuz.dto;
+package com.codeuz.dto.profile;
 
 
 import com.codeuz.enums.ProfileRole;
@@ -34,6 +34,7 @@ public class ProfileCreateDTO {
     private String password;
 
     private ProfileStatus status;
+
     private ProfileRole role;
 
 }

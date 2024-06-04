@@ -20,7 +20,13 @@ GET localhost:8080/auth/verification/resend/couragesland77@gmail.com
 
 
 ### Login with email
-GET localhost:8080/auth/login_email?email=couragesland77@gmail.com&password=i12345L
+POST localhost:8080/auth/login_email
+Content-Type: application/json
+
+{
+  "email": "couragesland77@gmail.com",
+  "password": "i12345L"
+}
 
 
 ### Registration with phone

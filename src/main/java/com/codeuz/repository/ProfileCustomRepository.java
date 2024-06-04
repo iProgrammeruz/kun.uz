@@ -2,7 +2,7 @@ package com.codeuz.repository;
 
 
 import com.codeuz.dto.FilterResponseDTO;
-import com.codeuz.dto.ProfileFilterDTO;
+import com.codeuz.dto.profile.ProfileFilterDTO;
 import com.codeuz.entity.ProfileEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;

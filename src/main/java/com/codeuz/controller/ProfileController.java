@@ -1,9 +1,15 @@
 package com.codeuz.controller;
 
-import com.codeuz.dto.ProfileCreateDTO;
-import com.codeuz.dto.ProfileDTO;
-import com.codeuz.dto.ProfileFilterDTO;
+import com.codeuz.dto.profile.ProfileCreateDTO;
+import com.codeuz.dto.profile.ProfileDTO;
+import com.codeuz.dto.profile.ProfileFilterDTO;
+import com.codeuz.dto.ProfileUpdateDTO;
+import com.codeuz.dto.auth.JwtDTO;
+import com.codeuz.enums.ProfileRole;
 import com.codeuz.service.ProfileService;
+import com.codeuz.util.HttpRequestUtil;
+import com.codeuz.util.SecurityUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,33 +28,44 @@ public class ProfileController {
     private ProfileService profileService;
 
 
+    // 1 - Create Profile (ADMIN)
     @PostMapping("/create")
-    public ResponseEntity<ProfileDTO> create(@Valid @RequestBody ProfileCreateDTO profile){
+    public ResponseEntity<ProfileDTO> create(@Valid @RequestBody ProfileCreateDTO profile,
+                                             @RequestHeader("Authorization") String token,
+                                             HttpServletRequest request){
+        //SecurityUtil.getJwtDTO(token, ProfileRole.ROLE_ADMIN);
+        JwtDTO jwtDTO = HttpRequestUtil.getJwtDTO(request, ProfileRole.ROLE_ADMIN);
         ProfileDTO response = profileService.create(profile);
         return ResponseEntity.ok().body(response);
     }
 
-    //admin
+    // 2 - Update profile (ADMIN)
     @PutMapping("/update/{id}")
-    public ResponseEntity<Boolean> update(@PathVariable("id") Integer id, @Valid @RequestBody ProfileCreateDTO profile){
+    public ResponseEntity<Boolean> update(@PathVariable("id") Integer id, @Valid @RequestBody ProfileDTO profile,
+                                          @RequestHeader("Authorization") String token){
+        SecurityUtil.getJwtDTO(token, ProfileRole.ROLE_ADMIN);
+        //???
         profileService.update(id, profile);
         return ResponseEntity.ok().body(true);
     }
 
-    //user
-    @PutMapping("/update_user/{id}")
-    public ResponseEntity<Boolean> updateUser(@PathVariable("id") Integer id, @Valid @RequestBody ProfileCreateDTO profile){
-        profileService.updateUser(id, profile);
+    // 3 - Update Profile detail (ANY)
+    @PutMapping("/current")
+    public ResponseEntity<Boolean> updateUser(@RequestHeader("Authorization") String token,
+                                              @Valid @RequestBody ProfileUpdateDTO profile){
+        JwtDTO dto = SecurityUtil.getJwt(token);
+        profileService.updateUser(dto.getId(), profile);
         return ResponseEntity.ok().body(true);
     }
 
-
+    // (ADMIN)
     @DeleteMapping("/delete/{id}")
     public Boolean delete(@PathVariable("id") Integer id){
         profileService.delete(id);
         return true;
     }
 
+    // (ADMIN)
     @GetMapping("/all_with_pagination")
     public ResponseEntity<PageImpl<ProfileDTO>> getAllWithPagination(@RequestParam(value = "page", defaultValue = "1") int page,
                                                                      @RequestParam(value = "size", defaultValue = "10") int size){

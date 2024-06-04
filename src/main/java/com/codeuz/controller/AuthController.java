@@ -1,6 +1,7 @@
 package com.codeuz.controller;
 
-import com.codeuz.dto.ProfileDTO;
+import com.codeuz.dto.profile.ProfileDTO;
+import com.codeuz.dto.auth.AuthDTO;
 import com.codeuz.dto.auth.RegistrationDTO;
 import com.codeuz.service.AuthService;
 import jakarta.validation.Valid;
@@ -60,9 +61,9 @@ public class AuthController {
     }
 
     // Login with email
-    @GetMapping("/login_email")
-    public ResponseEntity<ProfileDTO> loginWithEmail(@RequestParam("email") String email, @RequestParam("password") String password) {
-        ProfileDTO response = authService.loginWithEmail(email, password);
+    @PostMapping("/login_email")
+    public ResponseEntity<ProfileDTO> loginWithEmail(@RequestBody AuthDTO authDTO) {
+        ProfileDTO response = authService.loginWithEmail(authDTO);
         return ResponseEntity.ok().body(response);
     }
 

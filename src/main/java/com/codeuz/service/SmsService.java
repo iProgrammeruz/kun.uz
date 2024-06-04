@@ -1,6 +1,7 @@
 package com.codeuz.service;
 
 
+import com.codeuz.dto.SmsHistoryDTO;
 import com.codeuz.entity.SmsHistoryEntity;
 import com.codeuz.exp.AppBadException;
 import com.codeuz.repository.SmsHistoryRepository;
@@ -8,9 +9,16 @@ import okhttp3.*;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -85,6 +93,58 @@ public class SmsService {
     }
 
 
+    // Get all sms by phone
+    public List<SmsHistoryDTO> getAllSmsByPhone(String phone) {
+        List<SmsHistoryEntity> list = smsHistoryRepository.findAllByPhone(phone);
+        if (list.isEmpty()) {
+            throw new AppBadException("List is empty");
+        }
+        List<SmsHistoryDTO> dtos = new ArrayList<>();
+        list.forEach(smsHistoryEntity -> {
+            dtos.add(toDTO(smsHistoryEntity));
+        });
+        return dtos;
+    }
+
+
+    // Get all sms by given date
+    public List<SmsHistoryDTO> getAllSmsByGivenDate(LocalDate givenDate) {
+        LocalDate from = givenDate;
+        LocalDate to = from.plusDays(1);
+        List<SmsHistoryEntity> list = smsHistoryRepository.findAllByGivenDate(from, to);
+        if (list.isEmpty()) {
+            throw new AppBadException("List is empty");
+        }
+        List<SmsHistoryDTO> dtos = new ArrayList<>();
+        list.forEach(smsHistoryEntity -> {
+            dtos.add(toDTO(smsHistoryEntity));
+        });
+        return dtos;
+    }
+
+
+    // Pagination
+    public PageImpl<SmsHistoryDTO> getAllEmailHistoryByPagination(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<SmsHistoryEntity> entities = smsHistoryRepository.findAll(pageable);
+        List<SmsHistoryDTO> dtos = new ArrayList<>();
+        entities.forEach(smsHistoryEntity -> {
+            dtos.add(toDTO(smsHistoryEntity));
+        });
+        return new PageImpl<>(dtos, pageable, dtos.size());
+    }
+
+
+    private SmsHistoryDTO toDTO(SmsHistoryEntity smsHistoryEntity) {
+        SmsHistoryDTO dto = new SmsHistoryDTO();
+        dto.setId(smsHistoryEntity.getId());
+        dto.setPhone(smsHistoryEntity.getPhone());
+        dto.setMessage(smsHistoryEntity.getMessage());
+        dto.setCreatedDate(smsHistoryEntity.getCreatedDate());
+        return dto;
+    }
+
+
     // Sms history save method
     public void saveSmsHistory(String phone, String code, String message){
         SmsHistoryEntity entity = new SmsHistoryEntity();
@@ -147,7 +207,6 @@ public class SmsService {
             throw new RuntimeException();
         }
     }
-
 
 
 

@@ -1,4 +1,4 @@
-package com.codeuz.dto;
+package com.codeuz.dto.profile;
 
 import com.codeuz.enums.ProfileRole;
 import com.fasterxml.jackson.annotation.JsonInclude;

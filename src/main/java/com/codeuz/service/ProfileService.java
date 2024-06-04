@@ -1,13 +1,14 @@
 package com.codeuz.service;
 
-import com.codeuz.dto.FilterResponseDTO;
-import com.codeuz.dto.ProfileCreateDTO;
-import com.codeuz.dto.ProfileDTO;
-import com.codeuz.dto.ProfileFilterDTO;
+import com.codeuz.dto.*;
+import com.codeuz.dto.profile.ProfileCreateDTO;
+import com.codeuz.dto.profile.ProfileDTO;
+import com.codeuz.dto.profile.ProfileFilterDTO;
 import com.codeuz.entity.ProfileEntity;
 import com.codeuz.exp.AppBadException;
 import com.codeuz.repository.ProfileCustomRepository;
 import com.codeuz.repository.ProfileRepository;
+import com.codeuz.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class ProfileService {
         profileEntity.setSurname(profile.getSurname());
         profileEntity.setEmail(profile.getEmail());
         profileEntity.setPhone(profile.getPhone());
-        profileEntity.setPassword(profile.getPassword());
+        profileEntity.setPassword(MD5Util.getMD5(profile.getPassword()));
         profileEntity.setStatus(profile.getStatus());
         profileEntity.setRole(profile.getRole());
         profileRepository.save(profileEntity);
@@ -38,13 +39,13 @@ public class ProfileService {
     }
 
 
-    public Boolean update(Integer id, ProfileCreateDTO profile) {
+    public Boolean update(Integer id, ProfileDTO profile) {
         ProfileEntity profileEntity = get(id);
         profileEntity.setName(profile.getName());
         profileEntity.setSurname(profile.getSurname());
         profileEntity.setEmail(profile.getEmail());
         profileEntity.setPhone(profile.getPhone());
-        profileEntity.setPassword(profile.getPassword());
+        profileEntity.setPassword(MD5Util.getMD5(profile.getPassword()));
         profileEntity.setStatus(profile.getStatus());
         profileEntity.setRole(profile.getRole());
         profileRepository.save(profileEntity);
@@ -52,13 +53,10 @@ public class ProfileService {
     }
 
 
-    public Boolean updateUser(Integer id, ProfileCreateDTO profileUser) {
+    public Boolean updateUser(Integer id, ProfileUpdateDTO profile) {
         ProfileEntity profileEntity = get(id);
-        profileEntity.setName(profileUser.getName());
-        profileEntity.setSurname(profileUser.getSurname());
-        profileEntity.setEmail(profileUser.getEmail());
-        profileEntity.setPhone(profileUser.getPhone());
-        profileEntity.setPassword(profileUser.getPassword());
+        profileEntity.setName(profile.getName());
+        profileEntity.setSurname(profile.getSurname());
         profileRepository.save(profileEntity);
         return true;
     }

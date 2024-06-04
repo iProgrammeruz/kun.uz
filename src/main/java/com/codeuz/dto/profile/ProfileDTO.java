@@ -1,4 +1,4 @@
-package com.codeuz.dto;
+package com.codeuz.dto.profile;
 
 import com.codeuz.enums.ProfileRole;
 import com.codeuz.enums.ProfileStatus;
@@ -24,6 +24,7 @@ public class ProfileDTO {
     private Boolean visible;
     private LocalDateTime createDate;
     private Integer photoId;
+    private String jwt;
 
 
 }

@@ -1,5 +1,6 @@
 package com.codeuz.service;
-import com.codeuz.dto.ProfileDTO;
+import com.codeuz.dto.profile.ProfileDTO;
+import com.codeuz.dto.auth.AuthDTO;
 import com.codeuz.dto.auth.RegistrationDTO;
 import com.codeuz.entity.ProfileEntity;
 import com.codeuz.entity.SmsHistoryEntity;
@@ -8,6 +9,7 @@ import com.codeuz.enums.ProfileStatus;
 import com.codeuz.exp.AppBadException;
 import com.codeuz.repository.ProfileRepository;
 import com.codeuz.repository.SmsHistoryRepository;
+import com.codeuz.util.JWTUtil;
 import com.codeuz.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -142,25 +144,26 @@ public class AuthService {
 
 
     // Login with email
-    public ProfileDTO loginWithEmail(String email, String password) {
-        Optional<ProfileEntity> optional = profileRepository.findByEmailAndVisibleTrue(email);
+    public ProfileDTO loginWithEmail(AuthDTO authDTO) {
+        Optional<ProfileEntity> optional = profileRepository.findByEmailAndVisibleTrue(authDTO.getEmail());
         if (optional.isEmpty()) {
             throw new AppBadException("User not found");
         }
         ProfileEntity entity = optional.get();
-        if (!entity.getPassword().equals(MD5Util.getMD5(password))) {
+        if (!entity.getPassword().equals(MD5Util.getMD5(authDTO.getPassword()))) {
             throw new AppBadException("Wrong password");
         }
         if (entity.getStatus() != ProfileStatus.ACTIVE) {
             throw new AppBadException("User is not active");
         }
         ProfileDTO dto = new ProfileDTO();
+        dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setSurname(entity.getSurname());
         dto.setEmail(entity.getEmail());
         dto.setPhone(entity.getPhone());
         dto.setRole(entity.getRole());
-        dto.setStatus(entity.getStatus());
+        dto.setJwt(JWTUtil.encode(entity.getId(), entity.getRole()));
         return dto;
     }
 

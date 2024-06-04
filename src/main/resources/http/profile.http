@@ -1,43 +1,45 @@
-### Create profile
+### Create profile (Admin)
 POST http://localhost:8080/profile/create
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0OTI5MTksImlkIjoyLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzU3OTMxOSwiaXNzIjoiS3VuVXpUZXN0In0.BdpmI_PrFJa9yDN79R4lm3Rscts_mOB2H9K5tympOpgyx-JHnAtnaXVvh3B9dYOKZ8N5A13yqyaabsR8e7POnw
+
+
+{
+  "name": "Kapitan",
+  "surname": "Barbossa",
+  "email": "ship@sea",
+  "phone": "998997771100",
+  "password": "kapitanb@rbossaship",
+  "status": "ACTIVE",
+  "role": "ROLE_USER"
+}
+
+
+### Update profile (Admin)
+PUT localhost:8080/profile/update/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTcwMDAyMzAsImlkIjoyLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzA4NjYzMCwiaXNzIjoiS3VuVXpUZXN0In0.mm5b4QNX2eWPjPjRyjlNjdMKF1HRRDyUIg8R5dia2P8AvU11rQDZdH8FmKqbtatKcm4wVfeMbng6U3tQtwH6yw
+
+
+{
+  "name": "Ali",
+  "surname": "Aliyev",
+  "email": "ali@mail.ru",
+  "phone": "998911234567",
+  "password": "Qwerty123",
+  "status": "ACTIVE",
+  "role": "ROLE_USER"
+}
+
+
+### Update Profile detail (ANY)
+PUT localhost:8080/profile/current
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTcwODE1NTEsImlkIjo1LCJyb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzE3MTY3OTUxLCJpc3MiOiJLdW5VelRlc3QifQ.HsuoxFgbd6E7e9eNpxmavuAdZ8PzGJEUIc54lMBKKkIewUVcyb6J8VqBpOrGWa3uomJAOJ913Pf9452Fkp_Isw
 
 {
   "name": "Jek",
-  "surname": "Jeckov",
-  "email": "help@1100",
-  "phone": "998991234567",
-  "password": "alkhj1234l",
-  "status": "ACTIVE",
-  "role": "ROLE_USER"
-}
-
-
-### Update by id for admin
-PUT localhost:8080/profile/update/3
-Content-Type: application/json
-
-{
-  "name": "Tom",
-  "surname": "Tomov",
-  "email": "help@1134",
-  "phone": "998901234567",
-  "password": "12340",
-  "status": "ACTIVE",
-  "role": "ROLE_USER"
-}
-
-
-### Update by id for user
-PUT localhost:8080/profile/update_user/3
-Content-Type: application/json
-
-{
-  "name": "Tomas",
-  "surname": "Brain",
-  "email": "help@tomasbra",
-  "phone": "998905556677",
-  "password": "5556677"
+  "surname": "Jeckov"
 }
 
 
@@ -52,6 +54,7 @@ DELETE localhost:8080/profile/delete/4
 ### Get all by filter
 POST localhost:8080/profile/filter?page=1&size=3
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkyMTkxMjEsImlhdCI6MTcxNjYyNzEyMSwicm9sZSI6InRlc3QiLCJzaWduIjoiYWRmODk1MDJhZDAyYjBlNDJjNTgwYTNiYmE3NmMyNGQwNjlhYWRmMTQ5NWY2N2Y1ZmEwNjc5OTBlMTE4YjU4NiIsInN1YiI6Ijc0MDIifQ.JsGEGpML-svM4ZJe0C3v4vp49zoCWcm6W_MJFrmrx4s
 
 {
 
