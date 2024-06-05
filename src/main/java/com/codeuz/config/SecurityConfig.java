@@ -55,6 +55,7 @@ public class SecurityConfig {
                             .requestMatchers("/profile/create").hasRole("ADMIN")
                             .requestMatchers("/region/lang").permitAll()
                             .requestMatchers("/region/adm/**").hasRole("ADMIN")
+                            .requestMatchers("/article/moderator", "/article/moderator/**").hasRole("MODERATOR")
                             .anyRequest()
                             .authenticated();
                 });

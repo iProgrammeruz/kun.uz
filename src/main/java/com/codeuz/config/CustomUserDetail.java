@@ -53,4 +53,10 @@ public class CustomUserDetail implements UserDetails {
     public boolean isEnabled() {
         return false;
     }
+
+    public ProfileEntity getProfile() {
+        return profile;
+    }
+
+
 }

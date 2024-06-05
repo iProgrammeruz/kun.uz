@@ -2,9 +2,7 @@ package com.codeuz.controller;
 
 import com.codeuz.dto.article.ArticleCreateDTO;
 import com.codeuz.dto.article.ArticleDTO;
-import com.codeuz.enums.ProfileRole;
 import com.codeuz.service.ArticleService;
-import com.codeuz.util.SecurityUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,16 +17,13 @@ public class ArticleController {
 
 
     // Moderator
-    @PostMapping("/create")
-    public ResponseEntity<ArticleDTO> create(@Valid @RequestBody ArticleCreateDTO article,
-                                             @RequestHeader("Authorization") String token) {
-        SecurityUtil.getJwtDTO(token, ProfileRole.ROLE_MODERATOR);
-        ArticleDTO response = articleService.create(article);
-        return ResponseEntity.ok(response);
+    @PostMapping("/moderator")
+    public ResponseEntity<ArticleDTO> create(@Valid @RequestBody ArticleCreateDTO article) {
+        return ResponseEntity.ok(articleService.create(article));
     }
 
     //Moderator
-    @PutMapping("/update/{id}")
+    @PutMapping("/moderator/update/{id}")
     public ResponseEntity<Boolean> update(@PathVariable("id") String id,
                                           @Valid @RequestBody ArticleCreateDTO article){
         articleService.update(id, article);
@@ -36,7 +31,7 @@ public class ArticleController {
     }
 
     //Moderator
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/moderator/delete/{id}")
     public Boolean delete(@PathVariable("id") String id){
         articleService.delete(id);
         return true;

@@ -35,20 +35,28 @@ public class ArticleEntity {
     @Column(name = "image_id")
     private Integer imageId;
 
+    @Column(name = "region_id")
+    private Integer regionId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "region_id")
+    @JoinColumn(name = "region_id", insertable = false, updatable = false)
     private RegionEntity region;
 
+    @Column(name = "category_id")
+    private Integer categoryId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private CategoryEntity category;
 
+    @Column(name = "moderator_id")
+    private Integer moderatorId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "moderator_id")
+    @JoinColumn(name = "moderator_id", insertable = false, updatable = false)
     private ProfileEntity moderator;
 
+    @Column(name = "publisher_id")
+    private Integer publisherId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "publisher_id")
+    @JoinColumn(name = "publisher_id", insertable = false, updatable = false)
     private ProfileEntity publisher;
 
     @Enumerated(EnumType.STRING)

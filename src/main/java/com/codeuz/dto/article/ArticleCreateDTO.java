@@ -1,10 +1,12 @@
 package com.codeuz.dto.article;
+import com.codeuz.dto.TypesDTO;
 import com.codeuz.enums.ArticleStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 
 
 @Getter
@@ -33,6 +35,8 @@ public class ArticleCreateDTO {
     private Integer sharedCount;
 
     private ArticleStatus status;
+
+    private List<Integer> types;
 
 
 

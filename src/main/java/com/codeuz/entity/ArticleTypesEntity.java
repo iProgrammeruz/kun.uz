@@ -16,12 +16,16 @@ public class ArticleTypesEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "article_id")
+    private String articleId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id")
+    @JoinColumn(name = "article_id", insertable = false, updatable = false)
     private ArticleEntity article;
 
+    @Column(name = "type_id")
+    private Integer typesId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "type_id")
+    @JoinColumn(name = "type_id", insertable = false, updatable = false)
     private TypesEntity types;
 
 

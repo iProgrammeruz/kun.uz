@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.UUID;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Getter
@@ -29,7 +30,7 @@ public class ArticleDTO {
     LocalDateTime publishedDate;
     private Boolean visible;
     private Integer viewCount;
-    private TypesEntity typesId;
+    private List<Integer> types;
 
 
 

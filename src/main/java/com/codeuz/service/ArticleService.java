@@ -4,10 +4,12 @@ import com.codeuz.dto.article.ArticleCreateDTO;
 import com.codeuz.dto.article.ArticleDTO;
 import com.codeuz.entity.ArticleEntity;
 import com.codeuz.entity.CategoryEntity;
+import com.codeuz.entity.ProfileEntity;
 import com.codeuz.entity.RegionEntity;
 import com.codeuz.repository.ArticleRepository;
 import com.codeuz.repository.CategoryRepositry;
 import com.codeuz.repository.RegionRepository;
+import com.codeuz.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,24 +19,22 @@ public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
     @Autowired
-    private RegionRepository regionRepository;
-    @Autowired
-    private CategoryRepositry categoryRepository;
-
+    private ArticleTypesService articleTypesService;
 
     //Moderator
     public ArticleDTO create(ArticleCreateDTO article) {
-        RegionEntity region = getRegion(article.getRegionId());
-        CategoryEntity category = getCategory(article.getCategoryId());
+        Integer moderatorId = SecurityUtil.getProfileId();
+
         ArticleEntity entity = new ArticleEntity();
         entity.setTitle(article.getTitle());
         entity.setDescription(article.getDescription());
         entity.setContent(article.getContent());
         entity.setImageId(article.getImageId());
-        entity.setRegion(region);
-        entity.setCategory(category);
-        //article types
+        entity.setRegionId(article.getRegionId());
+        entity.setCategoryId(article.getCategoryId());
+        entity.setModeratorId(moderatorId);
         articleRepository.save(entity);
+        articleTypesService.create(entity.getId(), article.getTypes());
         return toDTO(entity);
     }
 
@@ -92,7 +92,7 @@ public class ArticleService {
         });
     }
 
-    public RegionEntity getRegion(Integer regionId) {
+   /* public RegionEntity getRegion(Integer regionId) {
         return regionRepository.findById(regionId).orElseThrow(() -> {
             throw new IllegalArgumentException("Region not found");
         });
@@ -102,7 +102,7 @@ public class ArticleService {
         return categoryRepository.findById(categoryId).orElseThrow(() -> {
             throw new IllegalArgumentException("Category not found");
         });
-    }
+    }*/
 
 
 
