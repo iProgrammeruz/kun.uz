@@ -1,0 +1,39 @@
+### create article
+POST http://localhost:8080/article/moderator/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc4NTM3NDYsImlkIjoyLCJ1c2VybmFtZSI6InNoaXBAc2VhIiwicm9sZSI6IlJPTEVfTU9ERVJBVE9SIiwiZXhwIjoxNzE3OTQwMTQ2LCJpc3MiOiJLdW5VelRlc3QifQ.lJ7RjwjsnzrP7Ew-x_oo5Sm_gmeKNy-0sgB73u0dfVcqTXkmmJNpMn95e3AMLTkyGe4E98j61QyJdG38cJiLLg
+
+{
+  "title": "title",
+  "description": "description",
+  "content": "content",
+  "imageId": 1,
+  "regionId": 1,
+  "categoryId": 1,
+  "typesList": [
+    1,
+    2,
+    3,
+    4
+  ]
+}
+
+
+### Update article
+PUT localhost:8080/article/moderator
+Content-Type:  application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0OTk5NTYsImlkIjoyLCJ1c2VybmFtZSI6InRha2hpci5pc21haWxvZmYxQGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX01PREVSQVRPUiIsImV4cCI6MTcxNzU4NjM1NiwiaXNzIjoiS3VuVXoifQ.tdR1rI20Kh4a0_ex7k6uT4P7zDAeUiJBcwqdapJecQ17GtIv-tUpA6AuyNFxJxPd03ETEUbrbXrMcSlLmhYAlA"
+
+{
+  "title": "title2",
+  "description": "description",
+  "content": "content",
+  "imageId": 1,
+  "regionId": 1,
+  "categoryId": 1,
+  "typesList": [
+    3,
+    4,
+    5
+  ]
+}

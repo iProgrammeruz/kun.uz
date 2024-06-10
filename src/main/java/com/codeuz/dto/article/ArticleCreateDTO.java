@@ -35,8 +35,8 @@ public class ArticleCreateDTO {
     private Integer sharedCount;
 
     private ArticleStatus status;
-
-    private List<Integer> types;
+    @NotBlank
+    private List<Integer> typesList;
 
 
 

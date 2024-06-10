@@ -163,7 +163,7 @@ public class AuthService {
         dto.setEmail(entity.getEmail());
         dto.setPhone(entity.getPhone());
         dto.setRole(entity.getRole());
-        dto.setJwt(JWTUtil.encode(entity.getId(), entity.getRole()));
+        dto.setJwt(JWTUtil.encode(entity.getId(), entity.getEmail(), entity.getRole()));
         return dto;
     }
 

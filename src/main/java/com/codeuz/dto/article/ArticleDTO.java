@@ -30,7 +30,7 @@ public class ArticleDTO {
     LocalDateTime publishedDate;
     private Boolean visible;
     private Integer viewCount;
-    private List<Integer> types;
+    private List<Integer> typesList;
 
 
 

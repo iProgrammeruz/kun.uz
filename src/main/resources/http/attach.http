@@ -1,0 +1,10 @@
+POST http://localhost:8080/attach/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="zari.jpg"
+
+< C:\Users\coura\OneDrive\Desktop\appeal\zari.jpg
+
+### load image
+GET http://localhost:8080/attach/open2/zari.jpg

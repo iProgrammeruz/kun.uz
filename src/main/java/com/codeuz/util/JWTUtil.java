@@ -15,7 +15,7 @@ public class JWTUtil {
 
 
     //
-    public static String encode(Integer profileId, ProfileRole role) {
+    public static String encode(Integer profileId, String username, ProfileRole role) {
         JwtBuilder jwtBuilder = Jwts.builder();
         jwtBuilder.issuedAt(new Date());
 
@@ -25,6 +25,7 @@ public class JWTUtil {
         jwtBuilder.signWith(secretKeySpec);
 
         jwtBuilder.claim("id", profileId);
+        jwtBuilder.claim("username", username);
         jwtBuilder.claim("role", role);
 
         jwtBuilder.expiration(new Date(System.currentTimeMillis() + (tokenLiveTime)));
@@ -44,10 +45,11 @@ public class JWTUtil {
         Claims claims = jws.getPayload();
 
         Integer id = (Integer) claims.get("id");
+        String username = (String) claims.get("username");
         String role = (String) claims.get("role");
         if (role != null) {
             ProfileRole profileRole = ProfileRole.valueOf(role);
-            return new JwtDTO(id, profileRole);
+            return new JwtDTO(id, username, profileRole);
         }
         return new JwtDTO(id);
     }

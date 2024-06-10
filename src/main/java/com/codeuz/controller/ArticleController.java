@@ -6,7 +6,10 @@ import com.codeuz.service.ArticleService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+
 
 @RestController
 @RequestMapping("/article")
@@ -17,18 +20,22 @@ public class ArticleController {
 
 
     // Moderator
+    @PreAuthorize("hasRole('MODERATOR')")
     @PostMapping("/moderator")
     public ResponseEntity<ArticleDTO> create(@Valid @RequestBody ArticleCreateDTO article) {
         return ResponseEntity.ok(articleService.create(article));
     }
 
+
     //Moderator
+    @PreAuthorize("hasAnyRole('MODERATOR', 'PUBLISHER')")
     @PutMapping("/moderator/update/{id}")
     public ResponseEntity<Boolean> update(@PathVariable("id") String id,
                                           @Valid @RequestBody ArticleCreateDTO article){
         articleService.update(id, article);
         return ResponseEntity.ok(true);
     }
+
 
     //Moderator
     @DeleteMapping("/moderator/delete/{id}")

@@ -3,16 +3,18 @@ package com.codeuz.config;
 import com.codeuz.entity.ProfileEntity;
 import com.codeuz.enums.ProfileStatus;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 
 public class CustomUserDetail implements UserDetails {
 
-    private ProfileEntity profile;
+    final private ProfileEntity profile;
 
     public CustomUserDetail(ProfileEntity profile) {
        this.profile = profile;
@@ -21,37 +23,39 @@ public class CustomUserDetail implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        List<SimpleGrantedAuthority> roles = new ArrayList<>();
+        roles.add(new SimpleGrantedAuthority(profile.getRole().name()));
+        return roles;
     }
 
     @Override
     public String getPassword() {
-        return "";
+        return profile.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return profile.getEmail();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return profile.getStatus().equals(ProfileStatus.ACTIVE);
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return profile.getVisible();
     }
 
     public ProfileEntity getProfile() {

@@ -1,16 +1,16 @@
 ### Create profile (Admin)
 POST http://localhost:8080/profile/create
 Content-Type: application/json
-Authorization: Basic YWRtaW46QWRtaW5qb24wMQ==
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc4NTM2OTksImlkIjoxLCJ1c2VybmFtZSI6ImNvdXJhZ2VzbGFuZDc3QGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX0FETUlOIiwiZXhwIjoxNzE3OTQwMDk5LCJpc3MiOiJLdW5VelRlc3QifQ.PiXWDzvqjMaylOMYG680iTNXiICTVIk7dwFrStJPvMIVessVpiBYzjYtpRKnpdY1CKtZGoCb4TKcenXhLq2g9A
 
 {
   "name": "Kapitan",
   "surname": "Barbossa",
   "email": "ship@sea",
   "phone": "998997771100",
-  "password": "kapitanb@rbossaship",
+  "password": "12345",
   "status": "ACTIVE",
-  "role": "ROLE_USER"
+  "role": "ROLE_MODERATOR"
 }
 
 

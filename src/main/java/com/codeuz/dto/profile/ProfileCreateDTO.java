@@ -29,7 +29,7 @@ public class ProfileCreateDTO {
     @Size(min = 12, max = 12, message = "Phone number shoudld have 12 characters")
     private String phone;
 
-    @Size(min = 8, message = "Password must be at least 8 characters long")
+    @Size(min = 3, message = "Password must be at least 8 characters long")
     //@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$", message = "Password must contain at least one letter and one number")
     private String password;
 

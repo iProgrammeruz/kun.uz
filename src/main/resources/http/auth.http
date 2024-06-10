@@ -24,8 +24,8 @@ POST localhost:8080/auth/login_email
 Content-Type: application/json
 
 {
-  "email": "couragesland77@gmail.com",
-  "password": "i12345L"
+  "email": "ship@sea",
+  "password": "12345"
 }
 
 

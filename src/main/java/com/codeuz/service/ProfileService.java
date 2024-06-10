@@ -92,7 +92,6 @@ public class ProfileService {
         dto.setSurname(profileEntity.getSurname());
         dto.setEmail(profileEntity.getEmail());
         dto.setPhone(profileEntity.getPhone());
-        dto.setPassword(profileEntity.getPassword());
         dto.setStatus(profileEntity.getStatus());
         dto.setRole(profileEntity.getRole());
         return dto;
