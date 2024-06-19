@@ -1,44 +1,31 @@
 package com.codeuz.dto.article;
-import com.codeuz.dto.TypesDTO;
-import com.codeuz.enums.ArticleStatus;
+
+import com.codeuz.dto.AttachDTO;
+import com.codeuz.dto.CategoryDTO;
+import com.codeuz.dto.RegionDTO;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
-
 
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ArticleCreateDTO {
-
-    @NotBlank
+public class ArticleResponseDTO {
+    private String id;
     private String title;
-
-    @NotBlank
     private String description;
-
-    @NotBlank
     private String content;
-
-    @NotBlank
-    private String imageId;
-
-    @NotBlank
-    private Integer regionId;
-
-    @NotBlank
-    private Integer categoryId;
-
     private Integer sharedCount;
-
-    private ArticleStatus status;
-    @NotBlank
+    private String imageId;
+    private Integer regionId;
+    private Integer categoryId;
     private List<Integer> typesList;
-
-
-
-
+    private LocalDateTime createdDate;
+    private LocalDateTime publishedDate;
+    private AttachDTO image;
+    private RegionDTO region;
+    private CategoryDTO category;
 }

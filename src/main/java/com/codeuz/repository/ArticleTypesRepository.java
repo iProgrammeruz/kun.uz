@@ -1,5 +1,6 @@
 package com.codeuz.repository;
 
+import com.codeuz.entity.ArticleEntity;
 import com.codeuz.entity.ArticleTypesEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
@@ -22,5 +23,7 @@ public interface ArticleTypesRepository extends CrudRepository<ArticleTypesEntit
     @Transactional
     @Query("delete from ArticleTypesEntity  where articleId =?1 and typesId =?2")
     void deleteByArticleIdAndTypesId(String articleId, Integer typesId);
+
+    //List<ArticleEntity> FindTopByArticleIdTypesIdOrderByArticleIdDesc(int[] typesId);
 
 }

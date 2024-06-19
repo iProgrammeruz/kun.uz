@@ -5,6 +5,11 @@ import com.codeuz.entity.AttachEntity;
 import com.codeuz.exp.AppBadException;
 import com.codeuz.repository.AttachRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,29 +18,31 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.UUID;
 
+
 @Service
 public class AttachService {
 
     @Autowired
     private AttachRepository attachRepository;
+    @Value("${server.url}")
+    private String serverUrl;
 
 
     public String saveToSystem(MultipartFile file) {
-
             try {
                 File folder = new File("attaches");
                 if (!folder.exists()) {
                     folder.mkdir();
                 }
-
                 byte[] bytes = file.getBytes();
-                Path path = Paths.get("attaches/" + file.getOriginalFilename()); // attaches/zari.jpg
+                Path path = Paths.get("attaches/" + file.getOriginalFilename()); // attaches/captain.jpg
                 Files.write(path, bytes);
                 return file.getOriginalFilename();
             } catch (IOException e) {
@@ -77,7 +84,7 @@ public class AttachService {
 
 
     public String getExtension(String fileName) { // mp3/jpg/npg/mp4.....
-        // mazgi.jpg
+        // kapitan.jpg
         int lastIndex = fileName.lastIndexOf(".");
         return fileName.substring(lastIndex + 1);
     }
@@ -133,12 +140,55 @@ public class AttachService {
     }
 
 
+    public byte[] openGeneral(String attachId) {
+        byte[] data;
+        try {
+            AttachEntity entity = get(attachId);
+            String path = entity.getPath() + "/" + attachId;
+            Path file = Paths.get("uploads/" + path);
+            data = Files.readAllBytes(file);
+            return data;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new byte[0];
+    }
+
+
+    public ResponseEntity<Resource> download(String attachId) {
+        try {
+            AttachEntity entity = get(attachId);
+            String path = entity.getPath() + "/" + attachId;
+            Path file = Paths.get("uploads/" + path);
+            Resource resource = new UrlResource(file.toUri());
+
+            if (resource.exists() || resource.isReadable()) {
+                return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=\"" + entity.getOriginalName() + "\"").body(resource);
+            } else {
+                throw new RuntimeException("Could not read the file!");
+            }
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Error: " + e.getMessage());
+        }
+    }
+
+
+
+
     public AttachEntity get(String id) {
         return attachRepository.findById(id).orElseThrow(() -> {
             throw new AppBadException("Attach not found");
         });
     }
 
+
+    public AttachDTO getDTOWithURL(String attachId) {
+        AttachDTO dto = new AttachDTO();
+        dto.setId(attachId);
+        dto.setUrl(serverUrl + "/attach/open/" + attachId);
+        return dto;
+    }
 
 
     public AttachDTO toDTO(AttachEntity entity) {
@@ -148,7 +198,7 @@ public class AttachService {
         dto.setExtension(entity.getExtension());
         dto.setSize(entity.getSize());
         dto.setOriginalName(entity.getOriginalName());
-        // url?
+        dto.setUrl(serverUrl + "/attach/open2/" + entity.getId());
         return dto;
     }
 

@@ -11,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.LinkedList;
 import java.util.List;
-
+import java.util.Objects;
+import java.util.Optional;
 
 
 @Service
@@ -96,6 +97,17 @@ public class RegionService {
         List<RegionMapper> mapperList = regionRepository.findAllByLanguage(language.name());
         return mapperList;
     }
+
+
+    public RegionDTO getRegion(Integer id, Languages lang) {
+        RegionMapper regionMapper = regionRepository.findRegionByIdAndByLanguage(id, lang.name());
+        Objects.requireNonNull(regionMapper);
+        RegionDTO dto = new RegionDTO();
+        dto.setId(regionMapper.getId());
+        dto.setName(regionMapper.getName());
+        return dto;
+    }
+
 
 
 

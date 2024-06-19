@@ -22,10 +22,10 @@ public class ArticleTypesEntity {
     @JoinColumn(name = "article_id", insertable = false, updatable = false)
     private ArticleEntity article;
 
-    @Column(name = "type_id")
+    @Column(name = "types_id")
     private Integer typesId;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "type_id", insertable = false, updatable = false)
+    @JoinColumn(name = "types_id", insertable = false, updatable = false)
     private TypesEntity types;
 
 

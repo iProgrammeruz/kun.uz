@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Setter
@@ -33,7 +34,10 @@ public class ArticleEntity {
     private Integer sharedCount;
 
     @Column(name = "image_id")
-    private Integer imageId;
+    private String imageId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_id", insertable = false, updatable = false)
+    private AttachEntity attach;
 
     @Column(name = "region_id")
     private Integer regionId;
@@ -59,6 +63,9 @@ public class ArticleEntity {
     @JoinColumn(name = "publisher_id", insertable = false, updatable = false)
     private ProfileEntity publisher;
 
+    @OneToMany
+    private List<ArticleTypesEntity> articleTypes;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private ArticleStatus status = ArticleStatus.NOT_PUBLISHED;
@@ -75,5 +82,10 @@ public class ArticleEntity {
     @Column(name = "view_count")
     private Integer viewCount;
 
+    @Column(name = "like_count")
+    private Long likeCount;
+
+    @Column(name = "dislike_count")
+    private Long dislikeCount;
 
 }

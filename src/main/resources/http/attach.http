@@ -1,10 +1,26 @@
-POST http://localhost:8080/attach/upload
+### upload to system
+POST http://localhost:8080/attach/upload1
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
-Content-Disposition: form-data; name="file"; filename="zari.jpg"
+Content-Disposition: form-data; name="file"; filename="kapitan.jpg"
 
-< C:\Users\coura\OneDrive\Desktop\appeal\zari.jpg
+< C:\Users\coura\OneDrive\Desktop\appeal\kapitan.jpg
 
-### load image
-GET http://localhost:8080/attach/open2/zari.jpg
+
+### load image from system
+GET http://localhost:8080/attach/open1/kapitan.jpg
+
+
+### upload to DB
+POST http://localhost:8080/attach/upload2
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="kapitan.jpg"
+
+< C:\Users\coura\OneDrive\Desktop\appeal\kapitan.jpg
+
+### load image from DB
+GET http://localhost:8080/attach/open2/cda0c633-c9e1-413e-8a81-72add823457f.jpg
+

@@ -1,7 +1,9 @@
 package com.codeuz.service;
 import com.codeuz.dto.CategoryCreateDTO;
 import com.codeuz.dto.CategoryDTO;
+import com.codeuz.dto.RegionDTO;
 import com.codeuz.entity.CategoryEntity;
+import com.codeuz.entity.RegionEntity;
 import com.codeuz.enums.Languages;
 import com.codeuz.mapper.CategoryMapper;
 import com.codeuz.repository.CategoryRepositry;
@@ -58,8 +60,20 @@ public class CategoryService {
 
 
     public List<CategoryMapper> getAllByLanguage(Languages language) {
-        List<CategoryMapper> categoryMapperList = categoryRepositry.findAll(language.name());
-        return categoryMapperList;
+        return categoryRepositry.findAll(language.name());
+    }
+
+
+    public CategoryDTO getCategory(Integer id, Languages lang) {
+        CategoryEntity category = get(id);
+        CategoryDTO dto = new CategoryDTO();
+        dto.setId(category.getId());
+        switch (lang) {
+            case UZ -> dto.setNameUz(category.getNameUz());
+            case RU -> dto.setNameRu(category.getNameRu());
+            default -> dto.setNameEn(category.getNameEn());
+        }
+        return dto;
     }
 
 
