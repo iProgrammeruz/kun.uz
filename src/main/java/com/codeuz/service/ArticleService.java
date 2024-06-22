@@ -128,11 +128,11 @@ public class ArticleService {
         dto.setTitle(articleEntity.getTitle());
         dto.setDescription(articleEntity.getDescription());
         dto.setContent(articleEntity.getContent());
-        dto.setSharedCount(articleEntity.getSharedCount());
         dto.setRegion(regionService.getRegion(articleEntity.getRegionId(), lang));
         dto.setCategory(categoryService.getCategory(articleEntity.getCategoryId(), lang));
         dto.setPublishedDate(articleEntity.getPublishedDate());
         dto.setViewCount(articleEntity.getViewCount());
+        dto.setSharedCount(articleEntity.getSharedCount());
         //dto.setLikeCount(articleLikeRepository.getArticleLikeCount(articleId)); //TODO with trigger
         dto.setLikeCount(articleEntity.getLikeCount());
         dto.setDislikeCount(articleEntity.getDislikeCount());
@@ -141,10 +141,13 @@ public class ArticleService {
 
 
     //9.
-    public List<ArticleShortInfoMapper> getLast4ArticlesByTypesIdAndExceptId(Integer typesId, Integer articleId) {
-        articleRepository.getByTypesId(typesId, articleId);
-        return null;
+    public List<ArticleShortInfoMapper> getLast4ArticlesByTypeIdAndExcludingId(Integer typesId, String articleId) {
+        return articleRepository.getLast4ArticlesByTypeIdAndExcludingId(typesId, articleId).orElseThrow(() -> new AppBadException("Articles not found!"));
     }
+
+
+    //10.
+
 
 
     public void increaseViewCount(String articleId){

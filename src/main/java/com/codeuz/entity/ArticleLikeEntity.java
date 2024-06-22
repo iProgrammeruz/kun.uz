@@ -34,7 +34,7 @@ public class ArticleLikeEntity {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private EmotionStatus status;
+    private EmotionStatus emotionStatus;
 
 
 

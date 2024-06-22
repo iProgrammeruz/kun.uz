@@ -51,6 +51,18 @@ public interface ArticleRepository extends CrudRepository<ArticleEntity, String>
     List<ArticleShortInfoMapper> getLast8Articles(List<String> ids);
 
 
+    //9.
+    @Query( value = " select a from ArticleEntity as a " +
+            " inner join a.articleTypes as at" +
+            " where at.typesId = ?1 " +
+            " and a.id <> ?2 " +
+            " and a.status = 'PUBLISHED'" +
+            " and a.visible = true " +
+            " order by a.publishedDate " +
+            " limit 4 ")
+    Optional<List<ArticleShortInfoMapper>> getLast4ArticlesByTypeIdAndExcludingId(Integer typeId, String articleId);
+
+
     @Transactional
     @Modifying
     @Query("update ArticleEntity set viewCount = coalesce(viewCount, 0) +1 where id = ?1")

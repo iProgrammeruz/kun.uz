@@ -15,7 +15,9 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc4NTM3NDYsImlkIjoyLCJ1c
     2,
     3,
     4
-  ]
+  ],
+  "tagList": ["#lavozim","#daxshat","#mazgi"]
+
 }
 
 

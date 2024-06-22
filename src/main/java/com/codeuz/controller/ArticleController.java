@@ -3,6 +3,7 @@ package com.codeuz.controller;
 import com.codeuz.dto.article.ArticleCreateDTO;
 import com.codeuz.dto.article.ArticleResponseDTO;
 import com.codeuz.enums.Languages;
+import com.codeuz.mapper.ArticleShortInfoMapper;
 import com.codeuz.service.ArticleService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,15 @@ public class ArticleController {
                                                              @RequestHeader(value = "Accept-Language", defaultValue = "UZ") Languages lang) {
         return ResponseEntity.ok(articleService.getByIdAndLang(articleId, lang));
     }
+
+
+    @PreAuthorize("permitAll()")
+    @PostMapping("/get_last4_exclude_id")
+    public ResponseEntity<List<ArticleShortInfoMapper>> getLast4ArticlesExcludeId(@RequestParam Integer typesId,
+                                                                                 @RequestParam String articleId) {
+        return ResponseEntity.ok(articleService.getLast4ArticlesByTypeIdAndExcludingId(typesId, articleId));
+    }
+
 
 
 
