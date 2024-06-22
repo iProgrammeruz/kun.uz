@@ -5,10 +5,12 @@ import com.codeuz.dto.auth.AuthDTO;
 import com.codeuz.dto.auth.RegistrationDTO;
 import com.codeuz.service.AuthService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -17,11 +19,16 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    //private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
+
+
 
     // Registration with email
     @PostMapping("/registration_email")
     public ResponseEntity<String> registrationWithEmail(@Valid @RequestBody RegistrationDTO dto) {
         String body = authService.registrationWithEmail(dto);
+        //LOGGER.info("Registration name = {}  phone = {} ",dto.getName(),dto.getPhone());
+        log.info("Registration name = {}  phone = {} ",dto.getName(),dto.getPhone());
         return ResponseEntity.ok().body(body);
     }
 

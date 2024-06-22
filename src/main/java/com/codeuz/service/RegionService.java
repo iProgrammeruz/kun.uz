@@ -99,13 +99,8 @@ public class RegionService {
     }
 
 
-    public RegionDTO getRegion(Integer id, Languages lang) {
-        RegionMapper regionMapper = regionRepository.findRegionByIdAndByLanguage(id, lang.name());
-        Objects.requireNonNull(regionMapper);
-        RegionDTO dto = new RegionDTO();
-        dto.setId(regionMapper.getId());
-        dto.setName(regionMapper.getName());
-        return dto;
+    public RegionMapper getRegion(Integer id, Languages lang) {
+        return regionRepository.findRegionByIdAndByLanguage(id, lang.name());
     }
 
 

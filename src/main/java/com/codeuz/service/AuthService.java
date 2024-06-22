@@ -11,6 +11,8 @@ import com.codeuz.repository.ProfileRepository;
 import com.codeuz.repository.SmsHistoryRepository;
 import com.codeuz.util.JWTUtil;
 import com.codeuz.util.MD5Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,11 +32,15 @@ public class AuthService {
     @Autowired
     private SmsHistoryRepository smsHistoryRepository;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthService.class);
+
+
 
     // Registration with email
     public String registrationWithEmail(RegistrationDTO dto) {
         Optional<ProfileEntity> optional = profileRepository.findByEmailAndVisibleTrue(dto.getEmail());
         if (optional.isPresent()) {
+            LOGGER.warn("email {} already exists", dto.getEmail());
             throw new AppBadException("Email already exists");
         }
         ProfileEntity entity = new ProfileEntity();

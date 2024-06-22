@@ -9,6 +9,7 @@ import com.codeuz.exp.AppBadException;
 import com.codeuz.repository.ProfileCustomRepository;
 import com.codeuz.repository.ProfileRepository;
 import com.codeuz.util.MD5Util;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class ProfileService {
 
@@ -23,6 +25,8 @@ public class ProfileService {
     private ProfileRepository profileRepository;
     @Autowired
     private ProfileCustomRepository profileCustomRepository;
+    //private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
+
 
 
     public ProfileDTO create(ProfileCreateDTO profile) {
@@ -100,6 +104,8 @@ public class ProfileService {
 
     public ProfileEntity get(Integer id) {
         return profileRepository.findById(id).orElseThrow(() -> {
+            //LOGGER.error("Profile not found id = {}", id);
+            log.error("Profile not found id = {}", id);
             throw new AppBadException("Profile not found");
         });
     }

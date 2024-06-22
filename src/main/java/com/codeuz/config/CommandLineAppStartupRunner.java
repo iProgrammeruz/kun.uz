@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 
-@Component
+/*@Component
 public class CommandLineAppStartupRunner implements CommandLineRunner {
 
     private final ProfileRepository profileRepository;
@@ -38,5 +38,5 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
             profileRepository.save(profileEntity);
         }
     }
-}
+}*/
 

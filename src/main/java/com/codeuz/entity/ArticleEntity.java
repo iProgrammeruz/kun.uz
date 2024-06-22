@@ -31,7 +31,7 @@ public class ArticleEntity {
     private String content;
 
     @Column(name = "shared_count")
-    private Integer sharedCount;
+    private Integer sharedCount ;
 
     @Column(name = "image_id")
     private String imageId;
@@ -80,7 +80,7 @@ public class ArticleEntity {
     private Boolean visible;
 
     @Column(name = "view_count")
-    private Integer viewCount;
+    private Integer viewCount ;
 
     @Column(name = "like_count")
     private Long likeCount;

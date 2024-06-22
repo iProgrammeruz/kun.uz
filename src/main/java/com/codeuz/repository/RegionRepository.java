@@ -29,14 +29,14 @@ public interface RegionRepository extends CrudRepository<RegionEntity, Integer> 
     List<RegionMapper> findAllByLanguage(@Param("lang") String lang);
 
 
-    @Query(value = " select * " +
-            " CASE :lang " +
+    @Query(value = " select id as id " +
+            " CASE ?2 " +
             "   WHEN 'UZ' THEN name_uz " +
             "   WHEN 'EN' THEN name_en " +
             "   WHEN 'RU' THEN name_ru " +
             "   END as name " +
             " from region where id =?1 and visible = true; ", nativeQuery = true)
-    RegionMapper findRegionByIdAndByLanguage(Integer id, @Param("lang") String lang);
+    RegionMapper findRegionByIdAndByLanguage(Integer id,  String lang);
 
 
 

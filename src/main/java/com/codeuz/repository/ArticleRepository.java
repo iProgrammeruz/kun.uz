@@ -51,6 +51,8 @@ public interface ArticleRepository extends CrudRepository<ArticleEntity, String>
     List<ArticleShortInfoMapper> getLast8Articles(List<String> ids);
 
 
-
-
+    @Transactional
+    @Modifying
+    @Query("update ArticleEntity set viewCount = coalesce(viewCount, 0) +1 where id = ?1")
+    void increaseViewCount(String articleId);
 }

@@ -1,7 +1,6 @@
 package com.codeuz.controller;
 
 import com.codeuz.dto.article.ArticleCreateDTO;
-import com.codeuz.dto.article.ArticleDTO;
 import com.codeuz.dto.article.ArticleResponseDTO;
 import com.codeuz.service.ArticleService;
 import jakarta.validation.Valid;

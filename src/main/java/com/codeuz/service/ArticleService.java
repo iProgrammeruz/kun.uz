@@ -1,28 +1,18 @@
 package com.codeuz.service;
-
-import com.codeuz.dto.AttachDTO;
 import com.codeuz.dto.article.ArticleCreateDTO;
-import com.codeuz.dto.article.ArticleDTO;
 import com.codeuz.dto.article.ArticleResponseDTO;
 import com.codeuz.entity.ArticleEntity;
-import com.codeuz.entity.CategoryEntity;
-import com.codeuz.entity.ProfileEntity;
-import com.codeuz.entity.RegionEntity;
 import com.codeuz.enums.ArticleStatus;
 import com.codeuz.enums.Languages;
 import com.codeuz.exp.AppBadException;
 import com.codeuz.mapper.ArticleShortInfoMapper;
-import com.codeuz.repository.ArticleRepository;
-import com.codeuz.repository.ArticleTypesRepository;
-import com.codeuz.repository.CategoryRepositry;
-import com.codeuz.repository.RegionRepository;
+import com.codeuz.repository.*;
 import com.codeuz.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -33,6 +23,8 @@ public class ArticleService {
     private ArticleRepository articleRepository;
     @Autowired
     private ArticleTypesRepository articleTypesRepository;
+    @Autowired
+    private ArticleLikeRepository articleLikeRepository;
     @Autowired
     private ArticleTypesService articleTypesService;
     @Autowired
@@ -140,10 +132,21 @@ public class ArticleService {
         dto.setRegion(regionService.getRegion(articleEntity.getRegionId(), lang));
         dto.setCategory(categoryService.getCategory(articleEntity.getCategoryId(), lang));
         dto.setPublishedDate(articleEntity.getPublishedDate());
+        dto.setViewCount(articleEntity.getViewCount());
+        dto.setLikeCount(articleLikeRepository.getArticleLikeCount(articleId)); //TODO with trigger
+        return dto;
+    }
 
-        dto.setImageId(articleEntity.getImageId());
-        dto.setRegionId(articleEntity.getRegionId());
 
+    //9.
+    public List<ArticleShortInfoMapper> getLast4ArticlesByTypesIdAndExceptId(Integer typesId, Integer articleId) {
+        articleRepository.getByTypesId(typesId, articleId);
+        return null;
+    }
+
+
+    public void increaseViewCount(String articleId){
+        articleRepository.increaseViewCount(articleId);
     }
 
 
