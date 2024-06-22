@@ -2,6 +2,7 @@ package com.codeuz.controller;
 
 import com.codeuz.dto.article.ArticleCreateDTO;
 import com.codeuz.dto.article.ArticleResponseDTO;
+import com.codeuz.enums.Languages;
 import com.codeuz.service.ArticleService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,27 @@ public class ArticleController {
     @PostMapping("/get_last8")
     public ResponseEntity<List<ArticleResponseDTO>> getLast8Articles(@RequestBody List<String> articleIdList) {
         return ResponseEntity.ok(articleService.getLast8Articles(articleIdList));
+    }
+
+
+    @PreAuthorize("permitAll()")
+    @PostMapping("/get_byId_lang")
+    public ResponseEntity<ArticleResponseDTO> getByIdAndLang(@RequestBody String articleId,
+                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") Languages lang) {
+        return ResponseEntity.ok(articleService.getByIdAndLang(articleId, lang));
+    }
+
+
+
+
+    @GetMapping("/viewCountIncrease/{articleId}")
+    void increaseViewCount(@PathVariable String articleId) {
+        articleService.increaseViewCount(articleId);
+    }
+
+    @GetMapping("/shareCountIncrease/{articleId}")
+    void increaseShareCount(@PathVariable String articleId) {
+        articleService.increaseShareCount(articleId);
     }
 
 

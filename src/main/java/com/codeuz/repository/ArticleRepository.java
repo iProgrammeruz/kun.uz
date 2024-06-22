@@ -33,11 +33,11 @@ public interface ArticleRepository extends CrudRepository<ArticleEntity, String>
 
     //5.3 - 6.
     @Query (value = " select a.id, a.title, a.description, a.imageId, a.publishedDate " +
-    " from ArticleEntity as a " +
-    " inner join a.articleTypes as ats " +
-    " where ats.typesId = ?1 and a.visible = true and a.status = 'PUBLISHED' " +
-    " order by a.createdDate desc " +
-    " limit ?2 ")
+            " from ArticleEntity as a " +
+            " inner join a.articleTypes as ats " +
+            " where ats.typesId = ?1 and a.visible = true and a.status = 'PUBLISHED' " +
+            " order by a.createdDate desc " +
+            " limit ?2 ")
     List<ArticleShortInfoMapper> getByTypesId(Integer typeId, int limit);
 
 
@@ -55,4 +55,11 @@ public interface ArticleRepository extends CrudRepository<ArticleEntity, String>
     @Modifying
     @Query("update ArticleEntity set viewCount = coalesce(viewCount, 0) +1 where id = ?1")
     void increaseViewCount(String articleId);
+
+
+    @Transactional
+    @Modifying
+    @Query("update ArticleEntity set sharedCount = coalesce(viewCount, 0) +1 where id = ?1")
+    void increaseShareCount(String articleId);
+
 }

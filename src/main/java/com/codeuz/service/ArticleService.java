@@ -118,7 +118,7 @@ public class ArticleService {
     //    id(uuid),title,description,content,shared_count,image_id,
     //    region_id,category_id,moderator_id,publisher_id,status(Published,NotPublished)
     //    created_date,published_date,visible,view_count
-    public ArticleResponseDTO getById(String articleId, Languages lang) {
+    public ArticleResponseDTO getByIdAndLang(String articleId, Languages lang) {
         ArticleEntity articleEntity = get(articleId);
         if(articleEntity.getStatus() != ArticleStatus.PUBLISHED) {
             throw new AppBadException("Article not found!");
@@ -133,7 +133,9 @@ public class ArticleService {
         dto.setCategory(categoryService.getCategory(articleEntity.getCategoryId(), lang));
         dto.setPublishedDate(articleEntity.getPublishedDate());
         dto.setViewCount(articleEntity.getViewCount());
-        dto.setLikeCount(articleLikeRepository.getArticleLikeCount(articleId)); //TODO with trigger
+        //dto.setLikeCount(articleLikeRepository.getArticleLikeCount(articleId)); //TODO with trigger
+        dto.setLikeCount(articleEntity.getLikeCount());
+        dto.setDislikeCount(articleEntity.getDislikeCount());
         return dto;
     }
 
@@ -147,6 +149,10 @@ public class ArticleService {
 
     public void increaseViewCount(String articleId){
         articleRepository.increaseViewCount(articleId);
+    }
+
+    public void increaseShareCount(String articleId) {
+        articleRepository.increaseShareCount(articleId);
     }
 
 
@@ -181,6 +187,8 @@ public class ArticleService {
     public ArticleEntity get(String id) {
         return articleRepository.findByIdAndVisibleTrue(id).orElseThrow(() -> new AppBadException("Article not found"));
     }
+
+
 
 
 
